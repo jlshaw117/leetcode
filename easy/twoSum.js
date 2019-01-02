@@ -1,3 +1,4 @@
+// Brute force solution
 // const twoSum = function (nums, target) {
 //     for (let i = 0; i < nums.length; i++) {
 //         for (let j = i + 1; j < nums.length; j++) {
@@ -6,6 +7,8 @@
 //     }
 //     return null;
 // };
+
+// Optimized Solution
 
 const twoSum = function (nums, target) {
     const hash = {};
