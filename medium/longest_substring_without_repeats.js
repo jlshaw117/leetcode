@@ -1,15 +1,19 @@
 const lengthOfSub = (str) => {
-    let ans = '';
-
-    let startIdx = 0;
-    for (let idx = 1; idx <= str.length; idx++) {
-        
-        if (str.slice(startIdx, idx).includes(str[idx]) || !(str[idx])) {
-            if (str.slice(startIdx, idx).length > ans.length) {
-                ans = str.slice(startIdx, idx);
+    let ans = 0;
+    for (let i = 0; i < str.length; i++) {
+        sub = str[i];
+        for (let j = i + 1; j < str.length; j++) {
+            if (sub.includes(str[j])) {
+                break;
+            } else {
+                sub += str[j];
             }
-            startIdx = idx;
+        }
+        if (sub.length > ans) {
+            ans = sub.length;
         }
     }
-    return ans.length;
+    return ans;
 };
+
+lengthOfSub('abcabcbb');
