@@ -1,6 +1,8 @@
 const strToInt = (str) => {
     let digits = str.trim();
     let startingValues = '+-0123456789';
+    let min = Math.pow(-2, 31);
+    let max = Math.pow(2, 31) - 1;
     if (!startingValues.includes(digits[0])) {
         return 0;
     }
@@ -11,7 +13,7 @@ const strToInt = (str) => {
         if (digits[0] === '-') neg = true;
     }
     let ans = 0;
-    for (idx; idx < str.length; idx++) {
+    for (idx; idx <= str.length; idx++) {
         switch (digits.charCodeAt(idx)) {
             case 48:
                 ans = ans * 10 + 0;
@@ -44,8 +46,17 @@ const strToInt = (str) => {
                 ans = ans * 10 + 9;
                 break;
             default:
-                return ans;
+                if (neg) {
+                    ans *= -1;
+                }
+            
+                if (ans < min) {
+                    return min;
+                } else if (ans > max) {
+                    return max;
+                } else {
+                    return ans;
+                }
         }
     }
-    return ans;
 };
