@@ -8,17 +8,21 @@ const palindrome = (str) => {
     return true;
 };
 
-const logestPalindrome = (s) => {
-    if (s.length === 1) return s;
-    let ans = '';
+// Brute Force
 
-    for (let i = 0; i < s.length; i++) {
-        for (let j = i + 1; j < s.length; j++) {
-            let sub = s.slice(i, j + 1);
-            if (palindrome(sub) && sub.length > ans.length) {
-                ans = sub;
-            }
-        }
-    }
-    return ans;
-};
+// const logestPalindrome = (s) => {
+//     if (s.length === 0) return '';
+//     let ans = s[0];
+
+//     for (let i = 0; i < s.length; i++) {
+//         for (let j = i + 1; j < s.length; j++) {
+//             let sub = s.slice(i, j + 1);
+//             if (palindrome(sub) && sub.length > ans.length) {
+//                 ans = sub;
+//             }
+//         }
+//     }
+//     return ans;
+// };
+
+// Optimized
