@@ -1,18 +1,24 @@
 const removeNthFromEnd = (head, n) => {
-    let count = 0;
+    let count = 1;
     let curr = head;
 
     while (curr.next) {
-        count ++;
+        count++;
         curr = curr.next;
     }
-
+    if (count === n) {
+        return head.next
+    }
     curr = head;
 
     for (let idx = 0; idx < count - n - 1; idx++) {
-       curr = curr.next; 
+        curr = curr.next;
     }
 
-    curr.next = curr.next.next;
-    return head;
+    if (curr.next) {
+        curr.next = curr.next.next;
+    } else {
+        curr.next = null;
+    }
+    return head
 };
