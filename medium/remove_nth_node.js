@@ -25,23 +25,24 @@
 // };
 
 // Optimized
-const helper = (head, n) => {
-    for (let i = 1; i < n; i++) {
-        if (!head.next) return false;
-    }
-    return true;
-};
 
 const removeNthFromEnd = (head, n) => {
-    if (!head.next && n === 1) return head.next;
-    let curr = head;
-    while (curr.next) {
-        if (!helper(curr.next, n)) {
-            curr.next = curr.next.next;
-            break;
-        }
-        curr = curr.next;
+    let dummy = new ListNode(null);
+    dummy.next = head;
+    let currNode = dummy;
+    let endNode = dummy;
+
+    for (let idx = 0; idx < n; idx++) {
+        endNode = endNode.next;
     }
-    return head;
+
+    while (endNode.next) {
+        currNode = currNode.next;
+        endNode = endNode.next;
+    }
+
+    currNode.next = currNode.next.next;
+
+    return dummy.next;
 };
 
