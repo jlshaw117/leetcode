@@ -15,4 +15,4 @@ const permute = (nums) => {
     return ans;
 };
 
-console.log(permute([1,2,3]));
+console.log(permute([1,2,3,4]));
