@@ -46,7 +46,7 @@ class LinkedList {
 
     updateNode(node) {
         node.remove();
-        add(node);
+        this.add(node);
     }
 }
 
