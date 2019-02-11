@@ -72,23 +72,61 @@
 // 
 // Optimized
 
+// const longestValidParentheses = (str) => {
+//     let stack = [-1];
+//     let result = 0;
+
+//     for (let i = 0; i < str.length; i++) {
+//         if (str[i] === ')') {
+//             stack.pop();
+//             if (stack.length) {
+//                 let len = i - stack[stack.length - 1];
+//                 result = len > result ? len : result;
+//             } else {
+//                 stack.push(i);
+//             }
+//         } else {
+//             stack.push(i);
+//         }
+//     }
+//     return result;
+// };
+
 const longestValidParentheses = (str) => {
-    let stack = [-1];
     let result = 0;
 
-    for (let i = 0; i < str.length; i++) {
-        if (str[i] === ')') {
-            stack.pop();
-            if (stack.length) {
-                let len = i - stack[stack.length - 1];
-                result = len > result ? len : result;
-            } else {
-                stack.push(i);
-            }
+    let open = 0;
+    let close = 0;
+
+    for (let idx = 0; idx < str.length; idx ++) {
+        if (open === close && open + close > result) result = open + close;
+        if (str[idx] === '(') {
+            open++;
         } else {
-            stack.push(i);
+            close ++;
+        }
+        if (close > open) {
+            open = 0;
+            close = 0;
         }
     }
+    if (open === close && open + close > result) result = open + close;
+    open = 0;
+    close = 0;
+
+    for (let idx = str.length - 1; idx >= 0; idx--) {
+        if (open === close && open + close > result) result = open + close;
+        if (str[idx] === '(') {
+            open++;
+        } else {
+            close++;
+        }
+        if (open > close) {
+            open = 0;
+            close = 0;
+        }
+    }
+    if (open === close && open + close > result) result = open + close;
     return result;
 };
 
