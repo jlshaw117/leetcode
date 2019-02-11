@@ -1,25 +1,26 @@
-const isValid = (str) => {
-    const combo = {
-        '(': ')',
-        '[': ']',
-        '{': '}'
-    };
+// Brute Force
+// const isValid = (str) => {
+//     const combo = {
+//         '(': ')',
+//         '[': ']',
+//         '{': '}'
+//     };
 
-    let stack = [];
+//     let stack = [];
 
-    for (let idx = 0; idx < str.length; idx++) {
-        if (combo[str[idx]]) {
-            stack.push(str[idx]);
-        } else if (stack.length === 0) {
-            return false;
-        } else {
-            let curr = stack.pop();
-            if (str[idx] !== combo[curr]) return false;
-        }
-    }
+//     for (let idx = 0; idx < str.length; idx++) {
+//         if (combo[str[idx]]) {
+//             stack.push(str[idx]);
+//         } else if (stack.length === 0) {
+//             return false;
+//         } else {
+//             let curr = stack.pop();
+//             if (str[idx] !== combo[curr]) return false;
+//         }
+//     }
 
-    return stack.length === 0;
-};
+//     return stack.length === 0;
+// };
 
 // const longestValidParentheses = (str) => {
 //     let result = 0;
@@ -44,27 +45,51 @@ const isValid = (str) => {
 //     return result;
 // };
 
+// const longestValidParentheses = (str) => {
+//     let result = 0;
+
+//     for (let i = 0; i < str.length; i++) {
+//         let open = 0;
+//         let close = 0;
+//         if (str[i] === ')') continue;
+        
+//         for (let j = i; j <= str.length; j++) {
+//             if (str[j] === '(') {
+//                 open ++;
+//             } else {
+//                 close ++;
+//             }
+
+//             if (close > open) break;
+
+//             if (close === open && (j - i) > result && isValid(str.slice(i,j))) {
+//                 result = (j - i);
+//             }
+//         }
+//     }
+//     return result;
+// };
+// 
+// Optimized
+
 const longestValidParentheses = (str) => {
+    let stack = [-1];
     let result = 0;
 
     for (let i = 0; i < str.length; i++) {
-        let open = 0;
-        let close = 0;
-        if (str[i] === ')') continue;
-        
-        for (let j = i; j <= str.length; j++) {
-            if (str[j] === '(') {
-                open ++;
+        if (str[i] === ')') {
+            stack.pop();
+            if (stack.length) {
+                let len = i - stack[stack.length - 1];
+                result = len > result ? len : result;
             } else {
-                close ++;
+                stack.push(i);
             }
-
-            if (close > open) break;
-
-            if (close === open && (j - i) > result && isValid(str.slice(i,j))) {
-                result = (j - i);
-            }
+        } else {
+            stack.push(i);
         }
     }
     return result;
 };
+
+console.log(longestValidParentheses('(()'));
