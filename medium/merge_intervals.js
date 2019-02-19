@@ -3,13 +3,30 @@ const Interval = (start, end) => {
     this.end = end;
 };
 
-const overlapping = (a,b) => {
-    if (b.first < a.last)
+const sortByStartValue = (a,b) => {
+    if (a.start < b.start) return -1;
+    if (a.start === b.start) return 0;
+    if (a.start > b.start) return 1;
 };
 
 const merge = (intervals) => {
-    
+    if (intervals.length === 0) return [];
+    let sorted = intervals.sort(sortByStartValue);
+    let result = [sorted[0]];
+    let idx = 0;
+    for (let i = 1; i < intervals.length; i++) {
+        if (result[idx].end >= sorted[i].start) {
+            if (sorted[i].end > result[idx].end) {
+                result[idx].end = sorted[i].end;
+            }
+        } else {
+            idx++;
+            result.push(sorted[i]);
+        }
+    }
+    return result;
 };
+
 
 
 let a = new Interval(1,3);
