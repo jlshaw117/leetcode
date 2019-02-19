@@ -25,12 +25,20 @@
 //     return ans.concat(nums1, nums2);
 // };
 
-const partition = (nums1, nums2, i, j) => {
-    if (nums1[i - 1] <= nums2[j] && nums2[j - 1] <= nums2[i]) return [i,j];
+const partition = (nums1, nums2, len) => {
+    let i = Math.floor(nums1.length / 2);
+    let j = Math.floor((len + 1) / 2) - i;
+
+    if (nums1[i - 1] <= nums2[j] && nums2[j - 1] <= nums1[i]) return i;
     if (nums1[i - 1] > nums2[j]) {
-        
-        return partition(nums1, nums2, i, j)
+        // first half
+        return partition(nums1.slice(0, i), nums2, len);
+    } else {
+        // second half
+        return partition(nums1.slice(i + 1), nums2, len) + i + 1;
     }
+    // [0,1,2,3,5]  3,5
+    // [3,4,5,6,7]  3,4,5
 };
 
 const medianTwoSortedArrays = (nums1, nums2) => {
@@ -53,5 +61,7 @@ const medianTwoSortedArrays = (nums1, nums2) => {
 
 };
 
-[0,1,2,3,5]
-[4,6,7,8,9]
+console.log(partition([0, 1, 2, 3, 5], [3, 4, 5, 6, 7], 10));
+
+// [0,1,2,3,5]
+// [3,4,5,6,7]
