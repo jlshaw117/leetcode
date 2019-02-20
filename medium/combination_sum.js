@@ -15,7 +15,6 @@ const combinationSum = (nums, target) => {
                     newTarget -= nums[idx];
                     rec(currentResult, newTarget, idx);
                     newTarget += currentResult.pop();
-                    
                 }
             }
         }
