@@ -1,41 +1,41 @@
 const numberToWords = (int) => {
-    if (int === 0) return 'zero';
+    if (int === 0) return 'Zero';
 
     const ones = {
         0: '',
-        1: 'one',
-        2: 'two',
-        3: 'three',
-        4: 'four',
-        5: 'five',
-        6: 'six',
-        7: 'seven',
-        8: 'eight',
-        9: 'nine'
+        1: 'One',
+        2: 'Two',
+        3: 'Three',
+        4: 'Four',
+        5: 'Five',
+        6: 'Six',
+        7: 'Seven',
+        8: 'Eight',
+        9: 'Nine'
     };
 
     const teens = {
-        10: 'ten',
-        11: 'eleven',
-        12: 'twelve',
-        13: 'thirteen',
-        14: 'fourteen',
-        15: 'fifteen',
-        16: 'sixteen',
-        17: 'seventeen',
-        18: 'eighteen',
-        19: 'nineteen'
+        10: 'Ten',
+        11: 'Eleven',
+        12: 'Twelve',
+        13: 'Thirteen',
+        14: 'Fourteen',
+        15: 'Fifteen',
+        16: 'Sixteen',
+        17: 'Seventeen',
+        18: 'Eighteen',
+        19: 'Nineteen'
     };
 
     const tens = {
-        2: 'twenty',
-        3: 'thirty',
-        4: 'forty',
-        5: 'fifty',
-        6: 'sixty',
-        7: 'seventy',
-        8: 'eighty',
-        9: 'ninty'
+        2: 'Twenty',
+        3: 'Thirty',
+        4: 'Forty',
+        5: 'Fifty',
+        6: 'Sixty',
+        7: 'Seventy',
+        8: 'Eighty',
+        9: 'Ninety'
     };
 
     const rec = (int) => {
@@ -48,27 +48,48 @@ const numberToWords = (int) => {
         }
         let rem;
         let prefix;
+        let str = '';
 
         if (int < 100) {
             rem = int % 10;
             prefix = Math.floor(int / 10);
-            return tens[prefix] + ' ' + ones[rem];
+            if (rem) {
+                return tens[prefix] + ' ' + ones[rem];
+            } else {
+                return tens[prefix];
+            }
         } else if (int < 1000) {
             rem = int % 100;
             prefix = Math.floor(int / 100);
-            return ones[prefix] + ' hundred ' + rec(rem);
+            if (rem) {
+                return ones[prefix] + ' Hundred ' + rec(rem);
+            } else {
+                return ones[prefix] + ' Hundred';
+            }
         } else if (int < 1000000) {
             rem = int % 1000;
             prefix = Math.floor(int / 1000);
-            return rec(prefix) + ' thousand ' + rec(rem);
+            if (rem) {
+                return rec(prefix) + ' Thousand ' + rec(rem);
+            } else {
+                return rec(prefix) + ' Thousand';
+            }
         } else if (int < 1000000000) {
             rem = int % 1000000;
             prefix = Math.floor(int / 1000000);
-            return rec(prefix) + ' million ' + rec(rem);
+            if (rem) {
+                return rec(prefix) + ' Million ' + rec(rem);
+            } else {
+                return rec(prefix) + ' Million';
+            }
         } else {
             rem = int % 1000000000;
             prefix = Math.floor(int / 1000000000);
-            return rec(prefix) + ' billion ' + rec(rem);
+            if (rem) {
+                return rec(prefix) + ' Billion ' + rec(rem);
+            } else {
+                return rec(prefix) + ' Billion';
+            }
 
         }
     };
