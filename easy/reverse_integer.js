@@ -1,29 +1,16 @@
-
-
 const reverse = (num) => {
-    let originalMag = magnitude(num);
+    let neg = false;
+    if (num < 0) {
+        neg = true;
+        num *= -1;
+    }
     let result = 0;
-    while (!(magnitude(result) === originalMag)) {
-        lastDig = pop(num);
-        num = (num - lastDig) / 10;
-        result = push(result, lastDig);
-    }
-    return result;
-};
-
-const pop = (num) => {
-    return num % 10;
-};
-
-const push = (num, val) => {
-    return num * 10 + val;
-};
-
-const magnitude = (num) => {
-    let magnitude = 0;
-    while (num > 0) {
+    while (num) {
+        let dig = num % 10;
         num = Math.floor(num / 10);
-        magnitude += 1;
+        result = result * 10 + dig;
     }
-    return magnitude;
+    result = neg ? result * -1 : result;
+    if (result < -2147483648 || result > 2147483647) return 0;
+    return result;
 };
