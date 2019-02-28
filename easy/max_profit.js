@@ -10,3 +10,17 @@
 //     }
 //     return max;
 // };
+
+// optimized
+
+const maxProfit = (prices) => {
+    let minBuy = prices[0];
+    let max = 0;
+
+    for(let day = 1; day < prices.length; day++) {
+        max = Math.max(max, prices[day] - minBuy);
+        minBuy = Math.min(minBuy, prices[day]);
+    }
+
+    return max;
+};
