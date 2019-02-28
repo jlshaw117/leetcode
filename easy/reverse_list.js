@@ -1,3 +1,4 @@
+// Recursive
 // const reverseList = (head) => {
 //     let result = new ListNode(null);
 //     if (!head) return result.next;
@@ -14,3 +15,19 @@
 //     rec(head).next = null;
 //     return result.next;
 // };
+
+// Iterative
+const reverseList = (head) => {
+    let currNode = head;
+    let preNode = null;
+    let nextNode;
+
+    while (currNode) {
+        nextNode = currNode.next;
+        currNode.next = preNode;
+        preNode = currNode;
+        currNode = nextNode;
+    }
+
+    return preNode;
+};
