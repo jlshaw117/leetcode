@@ -32,12 +32,13 @@ const licenseKeyFormatting = (str, k) => {
     }
 
     let rem = newStr.length % k ? newStr.length % k : k;
-    let ans = newStr.slice(0, rem + 1);
-    let nextDash = k;
+    let ans = newStr.slice(0, rem);
+    let nextDash = rem;
     for (let idx = 0; idx < newStr.length; idx++) {
         if (idx === nextDash) {
             ans += `-`;
-            ans += newStr.slice(idx, idx + k +1);
+            nextDash += k;
+            ans += newStr.slice(idx, idx + k);
         }
     }
 
