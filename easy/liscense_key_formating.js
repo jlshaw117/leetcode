@@ -1,20 +1,45 @@
+//  O(n^2)
+
+// const licenseKeyFormatting = (str, k) => {
+
+//     let ans = [];
+//     for (let idx = 0; idx < str.length; idx++) {
+//         if (str[idx] === '-') continue;
+//         ans.push(str[idx].toUpperCase());
+//     }
+
+//     let rem = ans.length % k;
+
+//     if (!rem) rem = k;
+
+//     while (rem < ans.length) {
+//         ans.splice(rem, 0, '-');
+//         rem += k + 1;
+//     }
+
+//     return ans.join('');
+
+// };
+
+// O(N)
+
 const licenseKeyFormatting = (str, k) => {
 
-    let ans = [];
+    let newStr = '';
     for (let idx = 0; idx < str.length; idx++) {
         if (str[idx] === '-') continue;
-        ans.push(str[idx].toUpperCase());
+        newStr += str[idx].toUpperCase();
     }
 
-    let rem = ans.length % k;
-
-    if (!rem) rem = k;
-
-    while (rem < ans.length) {
-        ans.splice(rem, 0, '-');
-        rem += k + 1;
+    let rem = newStr.length % k ? newStr.length % k : k;
+    let ans = newStr.slice(0, rem + 1);
+    let nextDash = k;
+    for (let idx = 0; idx < newStr.length; idx++) {
+        if (idx === nextDash) {
+            ans += `-`;
+            ans += newStr.slice(idx, idx + k +1);
+        }
     }
 
-    return ans.join('');
-
+    return ans;
 };
