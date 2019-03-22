@@ -17,3 +17,16 @@
 
 //     return minCost;
 // };
+
+const minCostClimbingStairs = (costs) => {
+    let minCosts = {};
+
+    for (let i = costs.length - 1; i >= 0; i--) {
+        if (i >= costs.length - 2) {
+            minCosts[i] = costs[i];
+        } else {
+            minCosts[i] = costs[i] + Math.min(minCosts[i+1], minCosts[i+2]);
+        }
+    }
+    return Math.min(minCosts[0], minCosts[1]);
+};
