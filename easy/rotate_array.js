@@ -1,6 +1,6 @@
 var rotate = function (nums, k) {
     while (k) {
-        nums.unshift(nums.pop())
-        k--
+        nums.unshift(nums.pop());
+        k--;
     }
 };
