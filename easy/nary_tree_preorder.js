@@ -1,4 +1,4 @@
-const preorder = (root) => {
+const recPreorder = (root) => {
     let ans = [];
 
     const rec = (curr) => {
@@ -11,5 +11,23 @@ const preorder = (root) => {
     };
 
     rec(root);
+    return ans;
+};
+
+const preorder = (root) => {
+    if (!root) return [];
+    let ans = [];
+    let stack = [root];
+
+    while (stack.length) {
+        let curr = stack.pop();
+        ans.push(curr.val);
+        if (curr.children) {
+            for (let i = curr.children.length -1; i >= 0; i--) {
+                stack.push(curr.children[i]);
+            }
+        }
+
+    }
     return ans;
 };
