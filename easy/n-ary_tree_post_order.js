@@ -4,14 +4,27 @@ class Node {
         this.children = [];
     }
 }
+// Recursive
+// const postorder = (root) => {
+//     if (!root) return [];
+//     let result = [];
+//     for (let child of root.children) {
+//         result.push(...postorder(child));
+//     }
+//     result.push(root.val);
+//     return result;
+// };
 
+// Iterative
 const postorder = (root) => {
     if (!root) return [];
     let result = [];
-    for (let child of root.children) {
-        result.push(...postorder(child));
+    let stack = [root];
+    while (stack.length) {
+        let curr = stack.pop();
+        result.unshift(curr.val);
+        stack.push(...curr.children);
     }
-    result.push(root.val);
     return result;
 };
 
