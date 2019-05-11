@@ -6,23 +6,50 @@ class Node {
     }
 }
 
+// class BSTIterator {
+//     constructor(root) {
+//         const inOrder = (node) => {
+//             if (!node) return [];
+//             let left = inOrder(node.left);
+//             let right = inOrder(node.right);
+//             return left.concat([node.val], right);
+//         };
+//         this.order = inOrder(root);
+//     }
+
+//     next() {
+//         return this.order.shift();
+//     }
+
+//     hasNext() {
+//         return this.order.length > 0;
+//     }
+// }
+// Optimized for space
 class BSTIterator {
     constructor(root) {
-        const inOrder = (node) => {
-            if (!node) return [];
-            let left = inOrder(node.left);
-            let right = inOrder(node.right);
-            return left.concat([node.val], right);
-        };
-        this.order = inOrder(root);
+        let node = root;
+        this.stack = [];
+        while(node) {
+            this.stack.push(node);
+            node = node.left;
+        }
     }
 
     next() {
-        return this.order.shift();
+        let curr = this.stack.pop();
+        if (curr.right) {
+            let node = curr.right;
+            while (node) {
+                this.stack.push(node);
+                node = node.left;
+            }
+        }
+        return curr.val;
     }
 
     hasNext() {
-        return this.order.length > 0;
+        return this.stack.length > 0;
     }
 }
 
