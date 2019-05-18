@@ -85,9 +85,46 @@ function Node(val) {
     this.next = null;
 }
 
-var connect = function (root) {
-    if (!root) return root;
+// var connect = function (root) {
+//     if (!root) return root;
 
+//     let leftNext = root.left ? root.right : true;
+//     let rightNext = root.right ? null : true;
+//     let nextRoot = root.next;
+//     while (nextRoot) {
+//         if (leftNext && rightNext) break;
+//         if (nextRoot.left) {
+//             if (!leftNext) {
+//                 leftNext = nextRoot.left;
+//             } else {
+//                 rightNext = nextRoot.left;
+//             }
+//         } else if (nextRoot.right) {
+//             if (!leftNext) {
+//                 leftNext = nextRoot.right;
+//             } else {
+//                 rightNext = nextRoot.right;
+//             }
+//         }
+//         nextRoot = nextRoot.next;
+//     }
+
+//     if (root.left) root.left.next = leftNext;
+//     if (root.right) root.right.next = rightNext;
+
+//     connect(root.next);
+//     connect(root.left);
+//     connect(root.right);
+
+//     return root;
+// };
+
+// Optimized
+
+var connect = function (root, visited = new Set()) {
+    if (!root) return root;
+    if (visited.has(root)) return;
+    visited.add(root)
     let leftNext = root.left ? root.right : true;
     let rightNext = root.right ? null : true;
     let nextRoot = root.next;
@@ -112,9 +149,9 @@ var connect = function (root) {
     if (root.left) root.left.next = leftNext;
     if (root.right) root.right.next = rightNext;
 
-    connect(root.next);
-    connect(root.left);
-    connect(root.right);
+    connect(root.next, visited);
+    connect(root.left, visited);
+    connect(root.right, visited);
 
     return root;
 };
