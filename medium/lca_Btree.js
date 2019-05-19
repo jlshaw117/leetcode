@@ -4,31 +4,47 @@ function Node(val) {
     this.right = null; 
 }
 
-const lowestCommonAncestor = (root, p, q) => {
+// const lowestCommonAncestor = (root, p, q) => {
     
-    const rec = (root) => {
-        if (!root) return [[],[]];
+//     const rec = (root) => {
+//         if (!root) return [[],[]];
 
-        let [inOrderLeft, preOrderLeft] = rec(root.left);
-        let [inOrderRight, preOrderRight] = rec(root.right);
+//         let [inOrderLeft, preOrderLeft] = rec(root.left);
+//         let [inOrderRight, preOrderRight] = rec(root.right);
 
-        let inOrder = inOrderLeft.concat([root.val], inOrderRight);
-        let preOrder = [root.val].concat(preOrderLeft, preOrderRight);
+//         let inOrder = inOrderLeft.concat([root.val], inOrderRight);
+//         let preOrder = [root.val].concat(preOrderLeft, preOrderRight);
 
-        return [inOrder, preOrder];
-    };
-    let [inOrder, preOrder] = rec(root);
-    let pIdx = inOrder.indexOf(p);
-    let qIdx = inOrder.indexOf(q);
-    for (let i = 0; i < preOrder.length; i++) {
-        let rootVal = preOrder[i];
-        let rootIdx = inOrder.indexOf(rootVal);
-        if ((pIdx < rootIdx && qIdx > rootIdx) ||
-            (pIdx > rootIdx && qIdx < rootIdx) ||
-            (pIdx === rootIdx || qIdx === rootIdx)
-        ) {
-            return rootVal;
-        }
+//         return [inOrder, preOrder];
+//     };
+//     let [inOrder, preOrder] = rec(root);
+//     let pIdx = inOrder.indexOf(p);
+//     let qIdx = inOrder.indexOf(q);
+//     for (let i = 0; i < preOrder.length; i++) {
+//         let rootVal = preOrder[i];
+//         let rootIdx = inOrder.indexOf(rootVal);
+//         if ((pIdx < rootIdx && qIdx > rootIdx) ||
+//             (pIdx > rootIdx && qIdx < rootIdx) ||
+//             (pIdx === rootIdx || qIdx === rootIdx)
+//         ) {
+//             return rootVal;
+//         }
+//     }
+// };
+
+const lowestCommonAncestor = (root, p, q) => {
+    if (!root) return false;
+
+    let left = lowestCommonAncestor(root.left, p, q);
+    if (typeof (left) === 'object') return left;
+    let right = lowestCommonAncestor(root.right, p, q);
+    if (typeof (right) === 'object') return right;
+    if ((left && right) || ((root === p || root === q) && (left || right))) {
+        return root;
+    } else if (root === p || root === q) {
+        return true;
+    } else {
+        return (left || right);
     }
 };
 
